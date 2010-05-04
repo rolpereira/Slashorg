@@ -1,25 +1,26 @@
-;; This buffer is for notes you don't want to save, and for Lisp evaluation.
-;; If you want to create a file, visit that file with C-x C-f,
-;; then enter the text in that file's own buffer.
-
-
-
-(defun get-content-file-as-list ()
-  (org-split-string
-    (org-file-contents "./html.txt") "\n"))
-
-(defun get-content-file-as-list2 ()
+(defun get-frontpage-as-list ()
   (org-split-string
     (shell-command-to-string "w3m -dump -cols 20000 slashdot.org") "\n"))
 
+(defun extract-headline (str)
+  "Removes the \"Comments: <number> + -\" part of a headline.
+Exemple:
+If str is \"Comments: 60 + -    News: Lorem Ipsum on Tuesday May 04, @10:55AM\"
+it should return News: Lorem Ipsum"
+  ;(cadr (org-split-string str "+ -[[:space:]]*")))
+  (car (org-split-string
+         (cadr (org-split-string "Comments: 60 + -   Technology: BlackBerry Predicted a Century Ago By Nikola Tesla on Tuesday May 04, @08:53AM" "+ -[[:space:]]*"))
+         ;; This regexp removes the end of the headline (the part with the day
+         ;; of the week, name of the month, day of the month (in numerical
+         ;; format), and the hour the news was posted
+         " on [[:ascii:]]+ [[:ascii:]]+ [0-3][0-9], @[[:digit:]]*:[[:digit:]]*[AP]M$")))
+  
 
 (defun get-info (list)
-  ;(debug)
   (cond ((null list)
           '())
     ((string-match "Comments: " (car list))
-      
-      (let ((headline (car list))
+      (let ((headline (extract-headline (car list)))
              (summary (car (cdr (cddddr list))))) ; Current line + 5
       (concat "* " headline "\n"
         "  " summary "\n"
@@ -27,18 +28,16 @@
     (t
       (concat "" (get-info (cdr list))))))
 
-(setq max-lisp-eval-depth 2000000)
-(get-info (get-content-file-as-list))
-
-(defun teste ()
-  (interactive)
-  (let ((max-lisp-eval-depth 2000000))
-    (insert (get-info (get-content-file-as-list)))
-    (fill-region (point-min) (point-max))))
-
 (defun teste2 ()
   (interactive)
   (let ((max-lisp-eval-depth 2000000) 
          (max-specpdl-size 20000))
-    (insert (get-info (get-content-file-as-list2)))
+    (insert (get-info (get-frontpage-as-list)))
     (fill-region (point-min) (point-max))))
+
+(car (org-split-string
+  (cadr (org-split-string "Comments: 60 + -   Technology: BlackBerry Predicted a Century Ago By Nikola Tesla on Tuesday May 04, @08:53AM" "+ -[[:space:]]*"))
+  ;; This regexp removes the end of the headline (the part with the day of the
+  ;; week, name of the month, day of the month (in numerical format), and the
+  ;; hour the news was posted
+  " on [[:ascii:]]+ [[:ascii:]]+ [0-3][0-9], @[[:digit:]]*:[[:digit:]]*[AP]M$"))
