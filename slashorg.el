@@ -9,7 +9,7 @@ If str is \"Comments: 60 + -    News: Lorem Ipsum on Tuesday May 04, @10:55AM\"
 it should return News: Lorem Ipsum"
   ;(cadr (org-split-string str "+ -[[:space:]]*")))
   (car (org-split-string
-         (cadr (org-split-string "Comments: 60 + -   Technology: BlackBerry Predicted a Century Ago By Nikola Tesla on Tuesday May 04, @08:53AM" "+ -[[:space:]]*"))
+         (cadr (org-split-string str "+ -[[:space:]]*"))
          ;; This regexp removes the end of the headline (the part with the day
          ;; of the week, name of the month, day of the month (in numerical
          ;; format), and the hour the news was posted
