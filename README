@@ -1,0 +1,34 @@
+
+Slashorg is a program that let's you read the contents of the
+frontpage of Slashdot.org inside a org buffer.
+
+* Prerequisites
+
+  You need to have [[http://w3m.sourceforge.net/][w3m]] installed before you can use slashorg.
+
+  On a Ubuntu machine you can use the following command:
+  =sudo apt-get install w3m=
+
+  You also need to have [[http://orgmode.org/][org-mode]] installed. Most recent versions of
+  Emacs already have it installed, but if yours doesn't, you will need
+  to [[http://orgmode.org/manual/Installation.html#Installation][install]] it.
+
+  You can also install org-mode using your package manager. For
+  example, on a Ubuntu machine you can use the following command:
+  =sudo apt-get install org-mode=  
+
+* Instalation
+
+  Download the slashorg.el file and put it somewhere in your
+  load-path.
+
+  Add the following to your .emacs file:
+
+#+BEGIN_SRC emacs-lisp
+  (autoload 'slashorg "slashorg" "Read the front page of Slashdot.org as a `org-mode' buffer." t)
+#+END_SRC emacs-lisp
+
+  To use it, type M-x slashorg
+
+* TODO
+  Create installation instructions for windows (can it run w3m?)
