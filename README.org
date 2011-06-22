@@ -7,7 +7,10 @@ frontpage of Slashdot.org inside a org buffer.
   You need to have [[http://w3m.sourceforge.net/][w3m]] installed before you can use slashorg.
 
   On a Ubuntu machine you can use the following command:
-  =sudo apt-get install w3m=
+
+#+BEGIN_SRC sh
+  sudo apt-get install w3m
+#+END_SRC
 
   You also need to have [[http://orgmode.org/][org-mode]] installed. Most recent versions of
   Emacs already have it installed, but if yours doesn't, you will need
@@ -15,7 +18,10 @@ frontpage of Slashdot.org inside a org buffer.
 
   You can also install org-mode using your package manager. For
   example, on a Ubuntu machine you can use the following command:
-  =sudo apt-get install org-mode=  
+
+#+BEGIN_SRC sh
+  sudo apt-get install org-mode
+#+END_SRC
 
 * Instalation
 
@@ -30,5 +36,5 @@ frontpage of Slashdot.org inside a org buffer.
 
   To use it, type M-x slashorg
 
-* TODO
+* Things still missing
   Create installation instructions for windows (can it run w3m?)
